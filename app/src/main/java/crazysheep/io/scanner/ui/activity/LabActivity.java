@@ -1,0 +1,62 @@
+package crazysheep.io.scanner.ui.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.TextView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import crazysheep.io.scanner.R;
+import crazysheep.io.scanner.net.Callback;
+import crazysheep.io.scanner.net.Entity.GistEntity;
+import crazysheep.io.scanner.net.GitHubService;
+
+/**
+ * 测试界面
+ *
+ * Created by yang.li on 2016/12/3.
+ */
+public class LabActivity extends AppCompatActivity {
+
+    GitHubService mockService;
+
+    @BindView(R.id.result_tv) TextView resultTv;
+    @BindView(R.id.test_btn) Button testBtn;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_lab);
+        ButterKnife.bind(this);
+
+        mockService = new GitHubService();
+    }
+
+    @OnClick(R.id.test_btn)
+    void requestGist() {
+        testBtn.setEnabled(false);
+        resultTv.setText("开始请求...");
+        mockService.gist("c2a7c39532239ff261be",
+                new Callback<GistEntity>() {
+                    @Override
+                    public void onComplete() {
+                        testBtn.setEnabled(false);
+                    }
+
+                    @Override
+                    public void onSuccess(GistEntity gistEntity) {
+                        testBtn.setEnabled(true);
+                        resultTv.setText(String.format("请求成功, gist: %s", gistEntity));
+                    }
+
+                    @Override
+                    public void onFailed(Throwable throwable) {
+                        testBtn.setEnabled(true);
+                        resultTv.setText(String.format("请求失败: error: %s", throwable));
+                    }
+                });
+    }
+}
