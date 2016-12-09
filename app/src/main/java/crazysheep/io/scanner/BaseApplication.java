@@ -16,7 +16,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        HttpClient.init("https://api.github.com");
+        HttpClient.init("http://testing.bydian.com");
         L.init(BuildConfig.DEBUG);
     }
 }

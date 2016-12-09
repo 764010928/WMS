@@ -17,6 +17,7 @@
             android:id="@+id/account_et"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:singleLine="true"
             android:hint="账号" />
     </android.support.design.widget.TextInputLayout>
 
@@ -29,6 +30,7 @@
             android:id="@+id/password_et"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:singleLine="true"
             android:hint="密码"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
