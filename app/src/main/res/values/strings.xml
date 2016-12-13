@@ -5,4 +5,8 @@
     <string name="kucun_pandian">库存盘点</string>
     <string name="yiwei_caozuo">移位操作</string>
     <string name="shangpin_chaxun">商品信息查询</string>
+    <string name="goods_not_found">没找查找到相关商品</string>
+    <string name="search_tip">请输入商品相关信息查询或者扫描二位码,enter键开始搜索</string>
+    <string name="tip">提示</string>
+    <string name="net_error">网络错误！请检查网络</string>
 </resources>

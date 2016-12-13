@@ -15,7 +15,7 @@ import butterknife.OnClick;
 import crazysheep.io.scanner.R;
 import crazysheep.io.scanner.net.Callback;
 import crazysheep.io.scanner.net.Entity.LoginEntity;
-import crazysheep.io.scanner.net.GitHubService;
+import crazysheep.io.scanner.net.O2OService;
 
 public class MainActivity extends BaseTitleActivity {
 
@@ -26,15 +26,15 @@ public class MainActivity extends BaseTitleActivity {
     @BindView(R.id.login)
     Button login;
 
-    GitHubService mGitHubService;
+    O2OService mO2OService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setBackEnable(false);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setBackEnable(false);
-        mGitHubService=new GitHubService();
+        mO2OService =new O2OService();
         accountEt.setText("terminal");
         passwordEt.setText("123456");
     }
@@ -54,24 +54,25 @@ public class MainActivity extends BaseTitleActivity {
         }
         return true;
     }
-
+    ProgressDialog dialog;
     @OnClick(R.id.login)
     public void onClick() {
-        final ProgressDialog dialog=ProgressDialog.show(this,"提示","登录中...");
-        mGitHubService.Login(accountEt.getText().toString(), passwordEt.getText().toString(), new Callback<LoginEntity>() {
+        dialog=ProgressDialog.show(this,"提示","登录中...");
+        mO2OService.Login(accountEt.getText().toString(), passwordEt.getText().toString(), new Callback<LoginEntity>() {
             @Override
             public void onSuccess(LoginEntity loginEntity) {
-                dialog.hide();
+                dialog.dismiss();
                 if(loginEntity.isSuccess()){
                     startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                    MainActivity.this.finish();
                 }else
                     Toast.makeText(MainActivity.this,loginEntity.getErrCode()+":"+loginEntity.getErrMsg(),Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailed(Throwable throwable) {
-                dialog.hide();
-                Toast.makeText(MainActivity.this,throwable.getMessage(),Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+                Toast.makeText(MainActivity.this,getString(R.string.net_error),Toast.LENGTH_LONG).show();
             }
         });
     }

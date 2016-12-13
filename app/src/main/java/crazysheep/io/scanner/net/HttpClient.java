@@ -110,6 +110,7 @@ public class HttpClient {
         String finalUrl = urlHandler.handleQuerys(processedUrl, queryMaps);
         final Request request = new Request.Builder()
                 .url(finalUrl)
+                .header("TerminalToken",Token)
                 .get()
                 .build();
         String requestTag = String.format("GET#%s#%s", System.currentTimeMillis(),

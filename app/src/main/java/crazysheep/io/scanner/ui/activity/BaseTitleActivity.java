@@ -16,6 +16,7 @@ import crazysheep.io.scanner.R;
 
 public class BaseTitleActivity extends BaseActivity {
     Toolbar toolbar;
+    boolean backEnable = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,7 +33,15 @@ public class BaseTitleActivity extends BaseActivity {
         setContentView(titleView);
 
         initToolBar();
-
+        if (backEnable) {
+            toolbar.setNavigationIcon(R.mipmap.back);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+        }
         return titleView;
     }
 
@@ -47,15 +56,7 @@ public class BaseTitleActivity extends BaseActivity {
     }
 
     public void setBackEnable(boolean isEnable) {
-        if (!isEnable)
-            return;
-        toolbar.setNavigationIcon(R.mipmap.back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        backEnable=isEnable;
     }
 
 }

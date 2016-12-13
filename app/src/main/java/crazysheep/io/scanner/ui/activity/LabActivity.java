@@ -12,7 +12,7 @@ import butterknife.OnClick;
 import crazysheep.io.scanner.R;
 import crazysheep.io.scanner.net.Callback;
 import crazysheep.io.scanner.net.Entity.LoginEntity;
-import crazysheep.io.scanner.net.GitHubService;
+import crazysheep.io.scanner.net.O2OService;
 
 /**
  * 测试界面
@@ -21,7 +21,7 @@ import crazysheep.io.scanner.net.GitHubService;
  */
 public class LabActivity extends AppCompatActivity {
 
-    GitHubService mockService;
+    O2OService mockService;
 
     @BindView(R.id.result_tv) TextView resultTv;
     @BindView(R.id.test_btn) Button testBtn;
@@ -32,7 +32,7 @@ public class LabActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lab);
         ButterKnife.bind(this);
 
-        mockService = new GitHubService();
+        mockService = new O2OService();
     }
 
     @OnClick(R.id.test_btn)
