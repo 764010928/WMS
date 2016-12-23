@@ -11,8 +11,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import crazysheep.io.scanner.R;
 import crazysheep.io.scanner.net.Callback;
-import crazysheep.io.scanner.net.Entity.GistEntity;
-import crazysheep.io.scanner.net.GitHubService;
+import crazysheep.io.scanner.net.Entity.LoginEntity;
+import crazysheep.io.scanner.net.O2OService;
 
 /**
  * 测试界面
@@ -21,7 +21,7 @@ import crazysheep.io.scanner.net.GitHubService;
  */
 public class LabActivity extends AppCompatActivity {
 
-    GitHubService mockService;
+    O2OService mockService;
 
     @BindView(R.id.result_tv) TextView resultTv;
     @BindView(R.id.test_btn) Button testBtn;
@@ -32,31 +32,42 @@ public class LabActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lab);
         ButterKnife.bind(this);
 
-        mockService = new GitHubService();
+        mockService = new O2OService();
     }
 
     @OnClick(R.id.test_btn)
     void requestGist() {
         testBtn.setEnabled(false);
         resultTv.setText("开始请求...");
-        mockService.gist("c2a7c39532239ff261be",
-                new Callback<GistEntity>() {
-                    @Override
-                    public void onComplete() {
-                        testBtn.setEnabled(false);
-                    }
+        mockService.Login("terminal", "123456", new Callback<LoginEntity>() {
+            @Override
+            public void onSuccess(LoginEntity loginEntity) {
+                System.out.println(">>>>登录成功~");
+            }
 
-                    @Override
-                    public void onSuccess(GistEntity gistEntity) {
-                        testBtn.setEnabled(true);
-                        resultTv.setText(String.format("请求成功, gist: %s", gistEntity));
-                    }
-
-                    @Override
-                    public void onFailed(Throwable throwable) {
-                        testBtn.setEnabled(true);
-                        resultTv.setText(String.format("请求失败: error: %s", throwable));
-                    }
-                });
+            @Override
+            public void onFailed(Throwable throwable) {
+                System.out.println(">>>>登录失败~");
+            }
+        });
+//        mockService.gist("c2a7c39532239ff261be",
+//                new Callback<GistEntity>() {
+//                    @Override
+//                    public void onComplete() {
+//                        testBtn.setEnabled(false);
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(GistEntity gistEntity) {
+//                        testBtn.setEnabled(true);
+//                        resultTv.setText(String.format("请求成功, gist: %s", gistEntity));
+//                    }
+//
+//                    @Override
+//                    public void onFailed(Throwable throwable) {
+//                        testBtn.setEnabled(true);
+//                        resultTv.setText(String.format("请求失败: error: %s", throwable));
+//                    }
+//                });
     }
 }
