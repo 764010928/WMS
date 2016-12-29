@@ -42,6 +42,7 @@ public class HomeActivity extends BaseActivity {
             case R.id.mendian:
                 break;
             case R.id.pandian:
+                startActivity(new Intent(this,CheckListActivity.class));
                 break;
             case R.id.yiwei:
                 break;

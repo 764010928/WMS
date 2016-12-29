@@ -16,6 +16,7 @@ import crazysheep.io.scanner.R;
 import crazysheep.io.scanner.net.Callback;
 import crazysheep.io.scanner.net.Entity.LoginEntity;
 import crazysheep.io.scanner.net.O2OService;
+import crazysheep.io.scanner.utils.User;
 
 public class MainActivity extends BaseTitleActivity {
 
@@ -63,6 +64,7 @@ public class MainActivity extends BaseTitleActivity {
             public void onSuccess(LoginEntity loginEntity) {
                 dialog.dismiss();
                 if(loginEntity.isSuccess()){
+                    User.userinfo=loginEntity;
                     startActivity(new Intent(MainActivity.this,HomeActivity.class));
                     MainActivity.this.finish();
                 }else
