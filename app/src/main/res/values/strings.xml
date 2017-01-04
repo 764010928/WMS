@@ -27,4 +27,6 @@
     <string name="ru_ku_count">预期入库数：%s</string>
     <string name="ru_ku_count_now">实际入库数：%s</string>
     <string name="scan_ru_ku">扫码入库</string>
+    <string name="ru_ku_details">入库详情</string>
+    <string name="cao_zuo_ren">操作人：%s</string>
 </resources>

@@ -12,7 +12,7 @@ import butterknife.ButterKnife;
 import crazysheep.io.scanner.R;
 import crazysheep.io.scanner.adapter.RuKuListAdapter;
 
-public class RuKuListActivity extends BaseActivity {
+public class RuKuListActivity extends BaseTitleActivity {
 
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;

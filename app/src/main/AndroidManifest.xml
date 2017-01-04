@@ -24,7 +24,8 @@
         <activity android:name=".ui.activity.SearchGoodsActivity" />
         <activity android:name=".ui.activity.CheckListActivity" />
         <activity android:name=".ui.activity.CheckActivity" />
-        <activity android:name=".ui.activity.RuKuListActivity"></activity>
+        <activity android:name=".ui.activity.RuKuListActivity" />
+        <activity android:name=".ui.activity.RuKuDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 package crazysheep.io.scanner.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import crazysheep.io.scanner.R;
+import crazysheep.io.scanner.ui.activity.RuKuDetailsActivity;
+import crazysheep.io.scanner.ui.activity.SearchGoodsActivity;
 
 /**
  * Created by Bing on 2016/12/30.
@@ -35,7 +39,20 @@ public class RuKuListAdapter extends RecyclerView.Adapter<RuKuListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.rukuId.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG);
+        holder.rukuId.getPaint().setAntiAlias(true);
+        holder.rukuId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, RuKuDetailsActivity.class));
+            }
+        });
+        holder.rukuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, SearchGoodsActivity.class));
+            }
+        });
     }
 
     @Override
@@ -64,8 +81,7 @@ public class RuKuListAdapter extends RecyclerView.Adapter<RuKuListAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
-//            R.layout.listview_ru_ku_list_item
+            ButterKnife.bind(this,itemView);
         }
     }
 }
