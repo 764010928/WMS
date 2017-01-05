@@ -17,12 +17,14 @@ import crazysheep.io.scanner.net.Entity.ErrorEntity;
 public class ErrorMsgTip {
     public static Context context;
     public static List<ErrorEntity> errorList;
+    public static final String ERR_NOINTERNET="0";
+    public static final String ERR_NOT_FONUNT="1";
 
     public static void init(Context mContext){
         context=mContext;
         errorList = new ArrayList<>();
-        errorList.add(new ErrorEntity("0", getString(R.string.net_error)));
-        errorList.add(new ErrorEntity("1", getString(R.string.goods_not_found)));
+        errorList.add(new ErrorEntity(ERR_NOINTERNET, getString(R.string.net_error)));
+        errorList.add(new ErrorEntity(ERR_NOT_FONUNT, getString(R.string.goods_not_found)));
     }
 
     public static void showMsg(String errorCode, String errorMsg) {

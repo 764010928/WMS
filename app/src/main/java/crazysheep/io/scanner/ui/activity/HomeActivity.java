@@ -38,10 +38,12 @@ public class HomeActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.caigou:
+                startActivity(new Intent(this,RuKuListActivity.class));
                 break;
             case R.id.mendian:
                 break;
             case R.id.pandian:
+                startActivity(new Intent(this,CheckListActivity.class));
                 break;
             case R.id.yiwei:
                 break;

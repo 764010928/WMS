@@ -56,6 +56,33 @@ public class LoginEntity {
          */
 
         private String token;
+        private String name;
+        private String loginId;
+        private int userId;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getLoginId() {
+            return loginId;
+        }
+
+        public void setLoginId(String loginId) {
+            this.loginId = loginId;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
 
         public String getToken() {
             return token;
