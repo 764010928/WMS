@@ -2,5 +2,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- 添加这一句， 即可改变图标的颜色-->
+        <item name="android:textColorSecondary">#ffffff</item>
     </style>
 </resources>

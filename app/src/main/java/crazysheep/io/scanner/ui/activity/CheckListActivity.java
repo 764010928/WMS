@@ -1,6 +1,7 @@
 package crazysheep.io.scanner.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -64,6 +65,7 @@ public class CheckListActivity extends BaseTitleActivity {
         adapter = new CheckListAdapter(this, mList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(adapter);
+        refresh.setColorSchemeColors(Color.BLUE,Color.RED,Color.YELLOW,Color.GREEN);
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

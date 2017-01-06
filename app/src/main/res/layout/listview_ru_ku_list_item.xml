@@ -51,7 +51,7 @@
 
             <TextView
                 android:id="@+id/ruku_type"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/ru_ku_type" />
@@ -59,7 +59,7 @@
 
             <TextView
                 android:id="@+id/tuku_status"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/ru_ku_status" />
@@ -72,7 +72,7 @@
 
             <TextView
                 android:id="@+id/ruku_conut"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/ru_ku_count" />
@@ -80,7 +80,7 @@
 
             <TextView
                 android:id="@+id/ruku_conut_now"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/ru_ku_count_now" />

@@ -56,6 +56,7 @@
             android:text="@string/ru_ku_status" />
 
         <TextView
+            android:id="@+id/op"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cao_zuo_ren" />
@@ -97,28 +98,11 @@
             android:layout_marginTop="5dp"
             android:background="#000"></View>
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="XXX" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="XXX" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="XXX" />
-        </LinearLayout>
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
 
         <View
             android:layout_width="match_parent"

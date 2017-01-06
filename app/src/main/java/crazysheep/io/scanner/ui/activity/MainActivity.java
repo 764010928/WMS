@@ -3,8 +3,6 @@ package crazysheep.io.scanner.ui.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,21 +38,7 @@ public class MainActivity extends BaseTitleActivity {
         passwordEt.setText("123456");
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.test_lab: {
-                startActivity(new Intent(this, LabActivity.class));
-            }
-        }
-        return true;
-    }
     ProgressDialog dialog;
     @OnClick(R.id.login)
     public void onClick() {

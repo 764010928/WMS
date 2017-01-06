@@ -3,6 +3,7 @@ package crazysheep.io.scanner.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import crazysheep.io.scanner.R;
+import crazysheep.io.scanner.net.Entity.RuKuEntity;
+import crazysheep.io.scanner.ui.activity.RuKuActivity;
 import crazysheep.io.scanner.ui.activity.RuKuDetailsActivity;
-import crazysheep.io.scanner.ui.activity.SearchGoodsActivity;
 
 /**
  * Created by Bing on 2016/12/30.
@@ -24,7 +26,7 @@ import crazysheep.io.scanner.ui.activity.SearchGoodsActivity;
 
 public class RuKuListAdapter extends RecyclerView.Adapter<RuKuListAdapter.ViewHolder> {
     Context context;
-    List mList;
+    List<RuKuEntity.DataBeanX.DataBean> mList;
 
     public RuKuListAdapter(Context context, List mList) {
         this.context = context;
@@ -39,20 +41,41 @@ public class RuKuListAdapter extends RecyclerView.Adapter<RuKuListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        RuKuEntity.DataBeanX.DataBean data=mList.get(position);
+
         holder.rukuId.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG);
         holder.rukuId.getPaint().setAntiAlias(true);
-        holder.rukuId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(context, RuKuDetailsActivity.class));
-            }
-        });
-        holder.rukuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(context, SearchGoodsActivity.class));
-            }
-        });
+        holder.rukuId.setOnClickListener(new MyOnclick(position,false));
+        holder.rukuButton.setOnClickListener(new MyOnclick(position,true));
+
+        holder.rukuId.setText(getString(R.string.ru_ku_code,data.getCode()));
+        holder.rukuFrom.setText(data.getFrom());
+        holder.rukuTo.setText(data.getTo());
+        holder.rukuType.setText(getString(R.string.ru_ku_type,data.getTypeName()));
+        holder.tukuStatus.setText(getString(R.string.ru_ku_status,data.getStatusName()));
+        holder.rukuConut.setText(getString(R.string.ru_ku_count,data.getExpectedCount()));
+        holder.rukuConutNow.setText(getString(R.string.ru_ku_count_now,data.getActualCount()));
+    }
+    public String getString(@StringRes int id,Object obj){
+        return context.getString(id,obj);
+    }
+    class MyOnclick implements View.OnClickListener{
+        int postion;
+        boolean isRuku;
+
+        public MyOnclick(int postion, boolean isRuku) {
+            this.postion = postion;
+            this.isRuku = isRuku;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if(isRuku)
+                context.startActivity(new Intent(context, RuKuActivity.class).putExtra("taskId",mList.get(postion).getTaskId()).putExtra("code",mList.get(postion).getCode()));
+            else
+                context.startActivity(new Intent(context, RuKuDetailsActivity.class).putExtra("taskId",mList.get(postion).getTaskId()).putExtra("code",mList.get(postion).getCode()));
+        }
     }
 
     @Override
