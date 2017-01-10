@@ -14,6 +14,7 @@ import crazysheep.io.scanner.net.Callback;
 import crazysheep.io.scanner.net.Entity.CheckEntity;
 import crazysheep.io.scanner.net.Entity.StartCheckEntity;
 import crazysheep.io.scanner.net.O2OService;
+import crazysheep.io.scanner.utils.ErrorMsgTip;
 import crazysheep.io.scanner.utils.User;
 
 public class CheckActivity extends BaseTitleActivity {
@@ -71,9 +72,9 @@ public class CheckActivity extends BaseTitleActivity {
             @Override
             public void onSuccess(CheckEntity checkEntity) {
                 if(checkEntity.isSuccess()){
-                    Toast.makeText(CheckActivity.this,"盘点成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CheckActivity.this,R.string.check_success,Toast.LENGTH_SHORT).show();
                 }else
-                    Toast.makeText(CheckActivity.this,"盘点失败",Toast.LENGTH_SHORT).show();
+                    ErrorMsgTip.showMsg(checkEntity.getErrCode(),checkEntity.getErrMsg());
             }
 
             @Override
@@ -81,5 +82,6 @@ public class CheckActivity extends BaseTitleActivity {
 
             }
         });
+        edittext.setText("");
     }
 }

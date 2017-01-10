@@ -8,7 +8,7 @@
     <string name="goods_not_found">没找查找到相关商品</string>
     <string name="search_tip">请输入商品相关信息查询或者扫描二位码,enter键开始搜索</string>
     <string name="tip">提示</string>
-    <string name="net_error">网络错误！请检查网络</string>
+    <string name="net_error">网络或者服务器错误！</string>
     <string name="create_time">创建时间:%s</string>
     <string name="end_time">完成时间:%s</string>
     <string name="check_id">盘点单号:%s</string>
@@ -21,7 +21,7 @@
     <string name="start">开始盘点</string>
     <string name="now_pandian">当前盘点人员：%s</string>
     <string name="please_check">请扫SKU码</string>
-    <string name="ru_ku_code">入库单编号%s</string>
+    <string name="ru_ku_code">入库单编号:%s</string>
     <string name="ru_ku_type">入库类型：%s</string>
     <string name="ru_ku_status">状态：%s</string>
     <string name="ru_ku_count">预期入库数：%s</string>
@@ -29,4 +29,9 @@
     <string name="scan_ru_ku">扫码入库</string>
     <string name="ru_ku_details">入库详情</string>
     <string name="cao_zuo_ren">操作人：%s</string>
+    <string name="ruku">入库</string>
+    <string name="chuku">出库</string>
+    <string name="scan_zone">扫码区</string>
+    <string name="ruku_success">入库成功</string>
+    <string name="check_success">盘点成功</string>
 </resources>
