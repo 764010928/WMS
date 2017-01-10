@@ -42,10 +42,10 @@ public class HomeActivity extends BaseTitleActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(HomeActivity.this, RuKuListActivity.class));
+                        startActivity(new Intent(HomeActivity.this, RuKuListActivity.class).putExtra("isRuKu",true));
                         break;
                     case 1:
-                        startActivity(new Intent(HomeActivity.this, RuKuListActivity.class));
+                        startActivity(new Intent(HomeActivity.this, RuKuListActivity.class).putExtra("isRuKu",false));
                         break;
                     case 2:
                         startActivity(new Intent(HomeActivity.this, SearchGoodsActivity.class));

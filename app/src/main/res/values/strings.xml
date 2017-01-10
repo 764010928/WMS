@@ -34,4 +34,9 @@
     <string name="scan_zone">扫码区</string>
     <string name="ruku_success">入库成功</string>
     <string name="check_success">盘点成功</string>
+    <string name="chu_ku_code">出库单编号:%s</string>
+    <string name="chu_ku_type">出库类型：%s</string>
+    <string name="chu_ku_count">预期出库数：%s</string>
+    <string name="chu_ku_count_now">实际出库数：%s</string>
+    <string name="chuku_success">出库成功</string>
 </resources>

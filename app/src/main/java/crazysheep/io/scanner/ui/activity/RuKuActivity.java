@@ -25,6 +25,7 @@ public class RuKuActivity extends BaseTitleActivity {
     @BindView(R.id.edittext)
     EditText edittext;
     String taskid,code;
+    boolean isRuKu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +34,10 @@ public class RuKuActivity extends BaseTitleActivity {
         init();
     }
     public void init(){
+        isRuKu=getIntent().getBooleanExtra("isRuKu",false);
         taskid = getIntent().getStringExtra("taskId");
         code = getIntent().getStringExtra("code");
-        rukuCode.setText(getString(R.string.ru_ku_code,code));
+        rukuCode.setText(getString(isRuKu?R.string.ru_ku_code:R.string.chu_ku_code,code));
         operator.setText(getString(R.string.operator,User.userinfo.getData().getName()));
         edittext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -51,11 +53,11 @@ public class RuKuActivity extends BaseTitleActivity {
     }
     public void onScan(){
         O2OService mO2OService=new O2OService();
-        mO2OService.scanRuKu(taskid, code, User.userinfo.getData().getUserId()+"", edittext.getText().toString(), new Callback<RuKuDetailEntity>() {
+        mO2OService.scanRuKu(isRuKu,taskid, code, User.userinfo.getData().getUserId()+"", edittext.getText().toString(), new Callback<RuKuDetailEntity>() {
             @Override
             public void onSuccess(RuKuDetailEntity ruKuDetailEntity) {
                 if(ruKuDetailEntity.isSuccess())
-                    Toast.makeText(RuKuActivity.this,R.string.ruku_success,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RuKuActivity.this,isRuKu?R.string.ruku_success:R.string.chuku_success,Toast.LENGTH_SHORT).show();
                 else
                     ErrorMsgTip.showMsg(ruKuDetailEntity.getErrCode(),ruKuDetailEntity.getErrMsg());
             }

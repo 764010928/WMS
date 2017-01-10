@@ -34,6 +34,7 @@ public class RuKuDetailsActivity extends BaseTitleActivity {
     RelativeLayout activityRuKuDetails;
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
+    boolean isRuKu;
 
     List<RuKuDetailEntity.DataBean.ProductsBean> mList = null;
     RuKuGoodsAdapter adapter = null;
@@ -52,16 +53,16 @@ public class RuKuDetailsActivity extends BaseTitleActivity {
         adapter = new RuKuGoodsAdapter(mList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(adapter);
-
+        isRuKu=getIntent().getBooleanExtra("isRuKu",false);
         String taskid = getIntent().getStringExtra("taskId");
         String code = getIntent().getStringExtra("code");
         O2OService mO2OService = new O2OService();
-        mO2OService.getRukuDetail(taskid, code, new Callback<RuKuDetailEntity>() {
+        mO2OService.getRukuDetail(isRuKu,taskid, code, new Callback<RuKuDetailEntity>() {
             @Override
             public void onSuccess(RuKuDetailEntity ruKuDetailEntity) {
                 if (ruKuDetailEntity.isSuccess()) {
 
-                    rukuId.setText(getString(R.string.ru_ku_code,ruKuDetailEntity.getData().getCode()));
+                    rukuId.setText(getString(isRuKu?R.string.ru_ku_code:R.string.chu_ku_code,ruKuDetailEntity.getData().getCode()));
                     rukuFrom.setText(ruKuDetailEntity.getData().getFrom());
                     rukuTo.setText(ruKuDetailEntity.getData().getTo());
                     rukuStatus.setText(getString(R.string.ru_ku_status,ruKuDetailEntity.getData().getStatusName()));

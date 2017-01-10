@@ -1,5 +1,6 @@
 package crazysheep.io.scanner.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,23 +24,25 @@ public class RuKuListActivity extends BaseTitleActivity {
     List mList;
     RuKuListAdapter adapter;
     O2OService o2OService;
+    boolean isRuKu=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ru_ku_list);
         ButterKnife.bind(this);
-        initView();
+        init();
         initData();
     }
-    public void initView(){
+    public void init(){
+        isRuKu=getIntent().getBooleanExtra("isRuKu",false);
         mList=new ArrayList();
-        adapter=new RuKuListAdapter(this,mList);
+        adapter=new RuKuListAdapter(this,mList,isRuKu);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(adapter);
+        o2OService=new O2OService();
     }
     public void initData(){
-        o2OService=new O2OService();
-        o2OService.getRukuList(1, 100, new Callback<RuKuEntity>() {
+        o2OService.getRukuList(isRuKu,1, 100, new Callback<RuKuEntity>() {
             @Override
             public void onSuccess(RuKuEntity ruKuEntity) {
                 if(ruKuEntity.isSuccess()){
@@ -55,5 +58,13 @@ public class RuKuListActivity extends BaseTitleActivity {
                 ErrorMsgTip.showMsg(ErrorMsgTip.ERR_NOINTERNET);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1){
+            initData();
+        }
     }
 }
