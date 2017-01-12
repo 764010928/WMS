@@ -1,5 +1,6 @@
 package crazysheep.io.scanner.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -27,10 +28,12 @@ import crazysheep.io.scanner.ui.activity.RuKuDetailsActivity;
 public class RuKuListAdapter extends RecyclerView.Adapter<RuKuListAdapter.ViewHolder> {
     Context context;
     List<RuKuEntity.DataBeanX.DataBean> mList;
+    boolean isRuKu;
 
-    public RuKuListAdapter(Context context, List mList) {
+    public RuKuListAdapter(Context context, List<RuKuEntity.DataBeanX.DataBean> mList, boolean isRuKu) {
         this.context = context;
         this.mList = mList;
+        this.isRuKu = isRuKu;
     }
 
     @Override
@@ -48,33 +51,41 @@ public class RuKuListAdapter extends RecyclerView.Adapter<RuKuListAdapter.ViewHo
         holder.rukuId.setOnClickListener(new MyOnclick(position,false));
         holder.rukuButton.setOnClickListener(new MyOnclick(position,true));
 
-        holder.rukuId.setText(getString(R.string.ru_ku_code,data.getCode()));
+        holder.rukuId.setText(getString(isRuKu?R.string.ru_ku_code:R.string.chu_ku_code,data.getCode()));
         holder.rukuFrom.setText(data.getFrom());
         holder.rukuTo.setText(data.getTo());
-        holder.rukuType.setText(getString(R.string.ru_ku_type,data.getTypeName()));
+        holder.rukuType.setText(getString(isRuKu?R.string.ru_ku_type:R.string.chu_ku_type,data.getTypeName()));
         holder.tukuStatus.setText(getString(R.string.ru_ku_status,data.getStatusName()));
-        holder.rukuConut.setText(getString(R.string.ru_ku_count,data.getExpectedCount()));
-        holder.rukuConutNow.setText(getString(R.string.ru_ku_count_now,data.getActualCount()));
+        holder.rukuConut.setText(getString(isRuKu?R.string.ru_ku_count:R.string.chu_ku_count,data.getExpectedCount()));
+        holder.rukuConutNow.setText(getString(isRuKu?R.string.ru_ku_count_now:R.string.chu_ku_count_now,data.getActualCount()));
     }
     public String getString(@StringRes int id,Object obj){
         return context.getString(id,obj);
     }
     class MyOnclick implements View.OnClickListener{
         int postion;
-        boolean isRuku;
+        boolean isScan;
 
-        public MyOnclick(int postion, boolean isRuku) {
+        public MyOnclick(int postion, boolean isScan) {
             this.postion = postion;
-            this.isRuku = isRuku;
+            this.isScan = isScan;
         }
 
         @Override
         public void onClick(View v) {
+            Intent mIntent=new Intent();
+            mIntent.putExtra("taskId",mList.get(postion).getTaskId())
+                    .putExtra("code",mList.get(postion).getCode())
+                    .putExtra("isRuKu",isRuKu);
+            if(isScan) {
+                mIntent.setClass(context, RuKuActivity.class);
+                ((Activity)context).startActivityForResult(mIntent,1);
+            }
+            else {
+                mIntent.setClass(context, RuKuDetailsActivity.class);
+                context.startActivity(mIntent);
+            }
 
-            if(isRuku)
-                context.startActivity(new Intent(context, RuKuActivity.class).putExtra("taskId",mList.get(postion).getTaskId()).putExtra("code",mList.get(postion).getCode()));
-            else
-                context.startActivity(new Intent(context, RuKuDetailsActivity.class).putExtra("taskId",mList.get(postion).getTaskId()).putExtra("code",mList.get(postion).getCode()));
         }
     }
 

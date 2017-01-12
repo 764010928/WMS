@@ -16,8 +16,8 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        HttpClient.init("http://testing.bydian.com/o2o");
-//        HttpClient.init("http://192.168.101.42:8080/jso2o");
+//        HttpClient.init("http://testing.bydian.com/o2o");
+        HttpClient.init("http://120.132.8.55/o2o");
         L.init(BuildConfig.DEBUG);
         ErrorMsgTip.init(this);
     }

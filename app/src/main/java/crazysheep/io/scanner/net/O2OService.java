@@ -40,6 +40,9 @@ public class O2OService implements ApiService {
     public static final String URL_RUKU_LIST="/terminal/inStock/query";
     public static final String URL_RUKU_DETAIL="/terminal/inStock/detail";
     public static final String URL_SCAN_RUKU="/terminal/inStock/in";
+    public static final String URL_CHUKU_LIST="/terminal/outStock/query";
+    public static final String URL_CHUKU_DETAIL="/terminal/outStock/detail";
+    public static final String URL_SCAN_CHUKU="/terminal/outStock/in";
     Gson gson = new Gson();
 
     public String Login(String username, String pwd, final Callback<LoginEntity> callback) {
@@ -93,28 +96,31 @@ public class O2OService implements ApiService {
         return HttpClient.getInstance().post(URL_CHECK,json.toString(),null, CheckEntity.class,callback);
     }
 
-    public String getRukuList(int page,int pageSize,Callback<RuKuEntity> callback){
+    public String getRukuList(boolean isRuKu,int page,int pageSize,Callback<RuKuEntity> callback){
         Map<String,Integer> map=new HashMap<>();
         map.put("page",page);
         map.put("pageSize",pageSize);
         JSONObject json = new JSONObject(map);
-        return HttpClient.getInstance().post(URL_RUKU_LIST,json.toString(),null, RuKuEntity.class,callback);
+        String url=isRuKu?URL_RUKU_LIST:URL_CHUKU_LIST;
+        return HttpClient.getInstance().post(url,json.toString(),null, RuKuEntity.class,callback);
     }
-    public String getRukuDetail(String taskid,String code,Callback<RuKuDetailEntity> callback){
+    public String getRukuDetail(boolean isRuKu,String taskid,String code,Callback<RuKuDetailEntity> callback){
         Map<String,String> map=new HashMap<>();
         map.put("taskId",taskid);
         map.put("code",code);
         JSONObject json = new JSONObject(map);
-        return HttpClient.getInstance().post(URL_RUKU_DETAIL,json.toString(),null, RuKuDetailEntity.class,callback);
+        String url=isRuKu?URL_RUKU_DETAIL:URL_CHUKU_DETAIL;
+        return HttpClient.getInstance().post(url,json.toString(),null, RuKuDetailEntity.class,callback);
     }
-    public String scanRuKu(String taskid,String code,String op,String productCode,Callback<RuKuDetailEntity> callback){
+    public String scanRuKu(boolean isRuKu,String taskid,String code,String op,String productCode,Callback<RuKuDetailEntity> callback){
         ReqScanRuKuEntity entity=new ReqScanRuKuEntity();
         entity.setTaskId(taskid);
         entity.setCode(code);
         entity.setOperatorId(op);
         entity.setProductCode(productCode);
         String json=gson.toJson(entity);
-        return HttpClient.getInstance().post(URL_SCAN_RUKU,json.toString(),null, RuKuDetailEntity.class,callback);
+        String url=isRuKu?URL_SCAN_RUKU:URL_SCAN_CHUKU;
+        return HttpClient.getInstance().post(url,json.toString(),null, RuKuDetailEntity.class,callback);
     }
 
     ////////////测试////////////////
