@@ -55,6 +55,12 @@ public class BaseTitleActivity extends BaseActivity {
         super.setContentView(setView(layoutResID));
     }
 
+    @Override
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
+        toolbar.setTitle(title);
+    }
+
     public void setBackEnable(boolean isEnable) {
         backEnable=isEnable;
     }

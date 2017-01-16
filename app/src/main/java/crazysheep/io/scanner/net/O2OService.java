@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,13 +17,6 @@ import crazysheep.io.scanner.net.Entity.RuKuDetailEntity;
 import crazysheep.io.scanner.net.Entity.RuKuEntity;
 import crazysheep.io.scanner.net.Entity.StartCheckEntity;
 import crazysheep.io.scanner.net.Entity.UserEntity;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
-import static crazysheep.io.scanner.net.HttpClient.JSON;
 
 /**
  * github的service，测试网络框架
@@ -42,7 +34,9 @@ public class O2OService implements ApiService {
     public static final String URL_SCAN_RUKU="/terminal/inStock/in";
     public static final String URL_CHUKU_LIST="/terminal/outStock/query";
     public static final String URL_CHUKU_DETAIL="/terminal/outStock/detail";
-    public static final String URL_SCAN_CHUKU="/terminal/outStock/in";
+    public static final String URL_SCAN_CHUKU="/terminal/outStock/out";
+    public static final String URL_MOVE="/terminal/product/move";
+    public static final String URL_LOGIN_OUT="/terminal/logout";
     Gson gson = new Gson();
 
     public String Login(String username, String pwd, final Callback<LoginEntity> callback) {
@@ -51,20 +45,7 @@ public class O2OService implements ApiService {
         userEntity.setPassword(pwd);
         userEntity.setStoreId("1");
         String json = gson.toJson(userEntity);
-        return HttpClient.getInstance().post(URL_LOGIN, json, null, LoginEntity.class, new Callback<LoginEntity>() {
-            @Override
-            public void onSuccess(LoginEntity loginEntity) {
-                if (loginEntity.getData() != null) {
-                    HttpClient.getInstance().Token = loginEntity.getData().getToken();
-                }
-                callback.onSuccess(loginEntity);
-            }
-
-            @Override
-            public void onFailed(Throwable throwable) {
-                callback.onFailed(throwable);
-            }
-        });
+        return HttpClient.getInstance().post(URL_LOGIN, json, null, LoginEntity.class, callback);
     }
 
     public String getGoodsList(String code, Callback<GoodsEntity> callback) {
@@ -122,35 +103,21 @@ public class O2OService implements ApiService {
         String url=isRuKu?URL_SCAN_RUKU:URL_SCAN_CHUKU;
         return HttpClient.getInstance().post(url,json.toString(),null, RuKuDetailEntity.class,callback);
     }
-
-    ////////////测试////////////////
-    public void test(){
-        Map<String,Integer> map=new HashMap<>();
-        map.put("page",1);
-        map.put("pageSize",10);
+    public String Move(String sourceLoc,String productCode,String targetLoc,String operatorId,Callback<CheckEntity> callback){
+        Map<String,String> map=new HashMap<>();
+        map.put("sourceLoc",sourceLoc);
+        map.put("productCode",productCode);
+        map.put("targetLoc",targetLoc);
+        map.put("operatorId",operatorId);
         JSONObject json = new JSONObject(map);
-        System.out.println(">json>>"+json.toString());
+        return HttpClient.getInstance().post(URL_MOVE,json.toString(),null, CheckEntity.class,callback);
+    }
 
-        RequestBody body = RequestBody.create(JSON, json.toString());
-        Request request = new Request.Builder()
-                .url("http://testing.bydian.com/o2o/terminal/inventoryCheck/startInventoryCheck")
-                .header("TerminalToken",HttpClient.getInstance().Token)
-                .post(body)
-                .build();
-        System.out.println(">>>token:"+HttpClient.getInstance().Token);
-        OkHttpClient mOkHttpClient = new OkHttpClient();
-        mOkHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                System.out.println("<<<<<<<:"+e.getMessage());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                System.out.println(">>>>>>:"+response.body().string());
-            }
-        });
-        System.out.println("<><><><><><><><><><><>");
+    public String LoginOut(Callback<CheckEntity> callback){
+        Map<String,String> map=new HashMap<>();
+        map.put("terminalToken",HttpClient.Token);
+        JSONObject json = new JSONObject(map);
+        return HttpClient.getInstance().post(URL_LOGIN_OUT,json.toString(),null, CheckEntity.class,callback);
     }
 
 }
