@@ -11,12 +11,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import crazysheep.io.scanner.R;
+import crazysheep.io.scanner.net.ApiService;
 import crazysheep.io.scanner.net.Callback;
 import crazysheep.io.scanner.net.Entity.LoginEntity;
+import crazysheep.io.scanner.net.HttpClient;
 import crazysheep.io.scanner.net.O2OService;
 import crazysheep.io.scanner.utils.User;
 
-public class MainActivity extends BaseTitleActivity {
+public class MainActivity extends BaseTitleActivity implements ApiService{
 
     @BindView(R.id.account_et)
     EditText accountEt;
@@ -47,6 +49,9 @@ public class MainActivity extends BaseTitleActivity {
             @Override
             public void onSuccess(LoginEntity loginEntity) {
                 dialog.dismiss();
+                if (loginEntity.getData() != null) {
+                    HttpClient.Token = loginEntity.getData().getToken();
+                }
                 if(loginEntity.isSuccess()){
                     User.userinfo=loginEntity;
                     startActivity(new Intent(MainActivity.this,HomeActivity.class));

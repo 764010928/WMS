@@ -50,6 +50,7 @@ public class RuKuListAdapter extends RecyclerView.Adapter<RuKuListAdapter.ViewHo
         holder.rukuId.getPaint().setAntiAlias(true);
         holder.rukuId.setOnClickListener(new MyOnclick(position,false));
         holder.rukuButton.setOnClickListener(new MyOnclick(position,true));
+        holder.rukuButton.setText(isRuKu?R.string.scan_ru_ku:R.string.scan_chu_ku);
 
         holder.rukuId.setText(getString(isRuKu?R.string.ru_ku_code:R.string.chu_ku_code,data.getCode()));
         holder.rukuFrom.setText(data.getFrom());

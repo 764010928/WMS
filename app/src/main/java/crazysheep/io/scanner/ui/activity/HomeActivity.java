@@ -16,6 +16,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import crazysheep.io.scanner.R;
 import crazysheep.io.scanner.adapter.MenuAdapter;
+import crazysheep.io.scanner.net.Callback;
+import crazysheep.io.scanner.net.Entity.CheckEntity;
+import crazysheep.io.scanner.net.O2OService;
+import crazysheep.io.scanner.utils.ErrorMsgTip;
 
 public class HomeActivity extends BaseTitleActivity {
 
@@ -24,6 +28,7 @@ public class HomeActivity extends BaseTitleActivity {
     @BindView(R.id.gridview)
     GridView gridview;
     MenuAdapter adapter;
+    O2OService o2OService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class HomeActivity extends BaseTitleActivity {
                         startActivity(new Intent(HomeActivity.this, CheckListActivity.class));
                         break;
                     case 4:
+                        startActivity(new Intent(HomeActivity.this,DisplacementActivity.class));
                         break;
                 }
             }
@@ -90,10 +96,29 @@ public class HomeActivity extends BaseTitleActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.test_lab: {
-                finish();
-                startActivity(new Intent(this,MainActivity.class));
+                LoginOut();
+                break;
             }
         }
         return true;
+    }
+    public void LoginOut(){
+        o2OService=new O2OService();
+        o2OService.LoginOut(new Callback<CheckEntity>() {
+            @Override
+            public void onSuccess(CheckEntity checkEntity) {
+                if(checkEntity.isSuccess()){
+                    finish();
+                    startActivity(new Intent(HomeActivity.this,MainActivity.class));
+                }else
+                    ErrorMsgTip.showMsg(checkEntity.getErrCode(),checkEntity.getErrMsg());
+
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                ErrorMsgTip.showMsg(ErrorMsgTip.ERR_NOINTERNET);
+            }
+        });
     }
 }

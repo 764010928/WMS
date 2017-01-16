@@ -39,4 +39,11 @@
     <string name="chu_ku_count">预期出库数：%s</string>
     <string name="chu_ku_count_now">实际出库数：%s</string>
     <string name="chuku_success">出库成功</string>
+    <string name="scan_chu_ku">扫码出库</string>
+    <string name="displacement">移位操作</string>
+    <string name="old_location">源库位</string>
+    <string name="goods">商品</string>
+    <string name="new_location">目标库位</string>
+    <string name="submit">提交</string>
+    <string name="move_success">移库成功</string>
 </resources>

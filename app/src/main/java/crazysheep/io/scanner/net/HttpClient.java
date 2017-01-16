@@ -24,7 +24,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * Created by yang.li on 2016/11/27.
  */
 public class HttpClient {
-    public String Token="";
+    public static String Token="";
 
     public static void init(String baseUrl) {
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()

@@ -26,7 +26,8 @@
         <activity android:name=".ui.activity.CheckActivity" />
         <activity android:name=".ui.activity.RuKuListActivity" />
         <activity android:name=".ui.activity.RuKuDetailsActivity" />
-        <activity android:name=".ui.activity.RuKuActivity"></activity>
+        <activity android:name=".ui.activity.RuKuActivity" />
+        <activity android:name=".ui.activity.DisplacementActivity"></activity>
     </application>
 
 </manifest>
