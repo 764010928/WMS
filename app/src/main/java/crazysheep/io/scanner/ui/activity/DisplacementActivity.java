@@ -80,6 +80,10 @@ public class DisplacementActivity extends BaseTitleActivity {
                     public void onSuccess(CheckEntity checkEntity) {
                         if(checkEntity.isSuccess()){
                             Toast.makeText(DisplacementActivity.this,R.string.move_success,Toast.LENGTH_SHORT).show();
+                            editNew.setText("");
+                            editGoods.setText("");
+                            editOld.setText("");
+                            editOld.requestFocus();
                         }else
                             ErrorMsgTip.showMsg(checkEntity.getErrCode(),checkEntity.getErrMsg());
                     }

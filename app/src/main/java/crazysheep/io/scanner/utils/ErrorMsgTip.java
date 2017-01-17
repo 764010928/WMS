@@ -51,4 +51,7 @@ public class ErrorMsgTip {
     public static String getString(@StringRes int id) {
         return context.getString(id);
     }
+    public void showDialog(){
+
+    }
 }

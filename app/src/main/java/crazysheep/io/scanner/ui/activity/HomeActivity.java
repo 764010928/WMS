@@ -24,7 +24,7 @@ import crazysheep.io.scanner.utils.ErrorMsgTip;
 public class HomeActivity extends BaseTitleActivity {
 
 
-    String[] menus = {"入库", "出库", "商品信息查询", "库存盘点", "移位操作"};
+    String[] menus = {"入库", "出库", "库存盘点", "移位", "商品查询"};
     @BindView(R.id.gridview)
     GridView gridview;
     MenuAdapter adapter;
@@ -45,20 +45,20 @@ public class HomeActivity extends BaseTitleActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
+                switch (menus[position]) {
+                    case "入库":
                         startActivity(new Intent(HomeActivity.this, RuKuListActivity.class).putExtra("isRuKu",true));
                         break;
-                    case 1:
+                    case "出库":
                         startActivity(new Intent(HomeActivity.this, RuKuListActivity.class).putExtra("isRuKu",false));
                         break;
-                    case 2:
+                    case "商品查询":
                         startActivity(new Intent(HomeActivity.this, SearchGoodsActivity.class));
                         break;
-                    case 3:
+                    case "库存盘点":
                         startActivity(new Intent(HomeActivity.this, CheckListActivity.class));
                         break;
-                    case 4:
+                    case "移位":
                         startActivity(new Intent(HomeActivity.this,DisplacementActivity.class));
                         break;
                 }

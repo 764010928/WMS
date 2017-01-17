@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Scanner</string>
+    <string name="app_name">WMS</string>
     <string name="caigou_ruku">采购入库</string>
     <string name="mendian_ruku">门店入库</string>
     <string name="kucun_pandian">库存盘点</string>
