@@ -70,17 +70,6 @@ public class DisplacementActivity extends BaseTitleActivity {
                 return false;
             }
         });
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                if(editOld.getText().toString().isEmpty()
-//                        ||editGoods.getText().toString().isEmpty()
-//                        ||editNew.getText().toString().isEmpty()){
-//                    ErrorMsgTip.showMsg();
-//                }
-
-            }
-        });
     }
 
     @OnClick({R.id.button, R.id.button_clear})
@@ -94,6 +83,7 @@ public class DisplacementActivity extends BaseTitleActivity {
                 editGoods.setText("");
                 editOld.setText("");
                 editOld.requestFocus();
+                buttonClear.setVisibility(View.GONE);
                 break;
         }
     }
@@ -107,12 +97,15 @@ public class DisplacementActivity extends BaseTitleActivity {
                     editGoods.setText("");
                     editOld.setText("");
                     editOld.requestFocus();
-                } else
+                } else {
                     ErrorMsgTip.showMsg(checkEntity.getErrCode(), checkEntity.getErrMsg());
+                    buttonClear.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onFailed(Throwable throwable) {
+                buttonClear.setVisibility(View.VISIBLE);
                 ErrorMsgTip.showMsg(ErrorMsgTip.ERR_NOINTERNET);
             }
         });
