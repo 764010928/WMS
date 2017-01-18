@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import crazysheep.io.scanner.R;
 import crazysheep.io.scanner.net.Callback;
 import crazysheep.io.scanner.net.Entity.CheckEntity;
@@ -29,6 +30,8 @@ public class DisplacementActivity extends BaseTitleActivity {
     @BindView(R.id.button)
     Button button;
     O2OService mO2OService;
+    @BindView(R.id.button_clear)
+    Button buttonClear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class DisplacementActivity extends BaseTitleActivity {
     }
 
     public void initView() {
-        mO2OService=new O2OService();
+        mO2OService = new O2OService();
         editOld.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -75,24 +78,42 @@ public class DisplacementActivity extends BaseTitleActivity {
 //                        ||editNew.getText().toString().isEmpty()){
 //                    ErrorMsgTip.showMsg();
 //                }
-                mO2OService.Move(editOld.getText().toString(), editGoods.getText().toString(), editNew.getText().toString(), User.userinfo.getData().getUserId() + "", new Callback<CheckEntity>() {
-                    @Override
-                    public void onSuccess(CheckEntity checkEntity) {
-                        if(checkEntity.isSuccess()){
-                            Toast.makeText(DisplacementActivity.this,R.string.move_success,Toast.LENGTH_SHORT).show();
-                            editNew.setText("");
-                            editGoods.setText("");
-                            editOld.setText("");
-                            editOld.requestFocus();
-                        }else
-                            ErrorMsgTip.showMsg(checkEntity.getErrCode(),checkEntity.getErrMsg());
-                    }
 
-                    @Override
-                    public void onFailed(Throwable throwable) {
-                        ErrorMsgTip.showMsg(ErrorMsgTip.ERR_NOINTERNET);
-                    }
-                });
+            }
+        });
+    }
+
+    @OnClick({R.id.button, R.id.button_clear})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button:
+                move();
+                break;
+            case R.id.button_clear:
+                editNew.setText("");
+                editGoods.setText("");
+                editOld.setText("");
+                editOld.requestFocus();
+                break;
+        }
+    }
+    public void move(){
+        mO2OService.Move(editOld.getText().toString(), editGoods.getText().toString(), editNew.getText().toString(), User.userinfo.getData().getUserId() + "", new Callback<CheckEntity>() {
+            @Override
+            public void onSuccess(CheckEntity checkEntity) {
+                if (checkEntity.isSuccess()) {
+                    Toast.makeText(DisplacementActivity.this, R.string.move_success, Toast.LENGTH_SHORT).show();
+                    editNew.setText("");
+                    editGoods.setText("");
+                    editOld.setText("");
+                    editOld.requestFocus();
+                } else
+                    ErrorMsgTip.showMsg(checkEntity.getErrCode(), checkEntity.getErrMsg());
+            }
+
+            @Override
+            public void onFailed(Throwable throwable) {
+                ErrorMsgTip.showMsg(ErrorMsgTip.ERR_NOINTERNET);
             }
         });
     }

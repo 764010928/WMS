@@ -46,4 +46,5 @@
     <string name="new_location">目标库位</string>
     <string name="submit">提交</string>
     <string name="move_success">移库成功</string>
+    <string name="clear">清空</string>
 </resources>
